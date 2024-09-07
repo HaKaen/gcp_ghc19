@@ -13,7 +13,8 @@ if(GTEST_FOUND)
 	)
 	target_include_directories(${GTEST_TARGET}
 		PUBLIC
-		$<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/src>
+		$<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include>
+		${PROJECT_BINARY_DIR}
 		${GTEST_INCLUDE_DIRS}
 	)
 	target_link_libraries(${GTEST_TARGET}

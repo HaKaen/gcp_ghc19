@@ -5,6 +5,7 @@ set_default_warnings(${MYLIB})
 
 target_sources(${MYLIB}
 	PRIVATE
+	data.cpp
 	reader.cpp
 	solver.cpp
 	writer.cpp
@@ -12,9 +13,9 @@ target_sources(${MYLIB}
 
 target_include_directories(${MYLIB}
 	PUBLIC
-	$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}
-	$<BUILD_INTERFACE:${CMAKE_BINARY_DIR}
-	$<INSTALL_INTERFACE:include
+	$<BUILD_INTERFACE:${CMAKE_SOURCE_DIR}/include>
+	$<BUILD_INTERFACE:${CMAKE_BINARY_DIR}>
+	$<INSTALL_INTERFACE:include>
 )
 
 target_link_libraries(${MYLIB}

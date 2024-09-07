@@ -32,6 +32,7 @@ include(cmake/default_warnings.cmake)
 # ---------------------------------------------------------------------------------------
 # Pass cmake variables to c++
 # ---------------------------------------------------------------------------------------
+set(PROJECT_DATA_DIR ${CMAKE_CURRENT_SOURCE_DIR}/data)
 configure_file(config.h.in config.h)
 
 # ---------------------------------------------------------------------------------------
@@ -58,7 +59,7 @@ target_sources(${CMAKE_PROJECT_NAME}
 
 target_include_directories (${CMAKE_PROJECT_NAME}
 	PUBLIC
-	$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src>
+	$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
 	${PROJECT_BINARY_DIR}
 )
 

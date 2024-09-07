@@ -1,20 +1,9 @@
 #include <iostream>
 #include <fstream>
-#include "data.h"
+#include "reader.h"
+#include "solver.h"
+#include "writer.h"
 #include "config.h"
-
-// decl methods
-// impl in cpp
-namespace reader {
-	void read(std::string, InputData&);
-}
-namespace solver {
-	long long solve(const InputData&, Solution&);
-}
-namespace writer {
-	void write(std::string, const Solution&);
-	void write(std::ostream&, const Solution&);
-}
 
 int main(int argc, char const* argv[])
 {
@@ -30,12 +19,13 @@ int main(int argc, char const* argv[])
     Solution s;
 
     reader::read(filename, data);
-    long long eval = solver::solve(data, s);
+//    reader::dump(std::cerr, data);
+    solver::solve(data, s);
 
     writer::write(filename, s);
-    writer::write(std::cout, s);
+//    writer::write(std::cout, s);
 
-    std::cerr << "eval " << filename << " = " << eval << std::endl;
+    std::cerr << "eval " << filename << " = " << solver::eval(s) << std::endl;
 
     return 0;
 }
