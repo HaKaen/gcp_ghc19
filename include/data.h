@@ -27,6 +27,7 @@ struct InputData {
 
 struct Solution {
 	std::vector<Slide> slides;
+	std::vector<int> evals;
 };
 
 #endif /* SRC_DATA_H_ */

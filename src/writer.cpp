@@ -22,4 +22,19 @@ namespace writer {
 			}
 		}
 	}
+	void read(std::string path, Solution& solution, const InputData& data){
+		std::ifstream inputFile(path);
+		int n,p1,p2;
+		inputFile >> n;
+		solution.slides.clear();
+		solution.slides.resize(n);
+		for (int i=0; i<n; ++i){
+			inputFile >> p1;
+			if (data.photos[p1].isVertical){
+				inputFile >> p2;
+				solution.slides[i].p2 = p2;
+			}
+			solution.slides[i].p1 = p1;
+		}
+	}
 }

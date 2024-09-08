@@ -5,7 +5,8 @@
 
 namespace solver {
 	void solve(const InputData&, Solution&);
-	long long eval(Solution&);
+	int eval(Solution&);
+	int lazyeval(Solution&, int, int);
 }
 
 #endif /* INCLUDE_SOLVER_H_ */

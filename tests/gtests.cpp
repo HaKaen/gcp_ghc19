@@ -30,6 +30,17 @@ TEST(solver, eval) {
 
 	int eval = solver::eval(sol);
 	EXPECT_EQ(eval,2);
+	int lazyeval = solver::lazyeval(sol,0,0);
+	EXPECT_EQ(lazyeval,0);
+	EXPECT_EQ(sol.evals[0],1);
+	EXPECT_EQ(sol.evals[1],1);
+	sol.slides[0].tags.insert(4);
+	sol.slides[1].tags.insert(1);
+	sol.slides[1].tags.insert(3);
+	lazyeval = solver::lazyeval(sol,0,1);
+	EXPECT_EQ(lazyeval,1);
+	EXPECT_EQ(sol.evals[0],2);
+	EXPECT_EQ(sol.evals[1],1);
 }
 
 TEST(writer, dump) {
