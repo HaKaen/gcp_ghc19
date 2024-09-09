@@ -20,4 +20,5 @@ target_include_directories(${MYLIB}
 
 target_link_libraries(${MYLIB}
 	PUBLIC
+	OpenMP::OpenMP_CXX
 )

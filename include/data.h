@@ -5,13 +5,14 @@
 #include <string>
 #include <unordered_map>
 #include <set>
+#include <limits.h>
 
 namespace global{
 	extern std::unordered_map<std::string, int> tags_id; // 10^5 * 100 * 10 < INT_MAX
 }
 
 struct Photo {
-	bool isVertical = false;
+	bool is_vertical = false;
 	std::vector<int> tags;
 };
 
@@ -23,6 +24,8 @@ struct Slide {
 
 struct InputData {
 	std::vector<Photo> photos;
+	std::vector<int> vertical;
+	std::vector<int> horizontal;
 };
 
 struct Solution {

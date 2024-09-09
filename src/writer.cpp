@@ -23,18 +23,27 @@ namespace writer {
 		}
 	}
 	void read(std::string path, Solution& solution, const InputData& data){
+		auto updateTags = [&data](Slide& slide){
+			slide.tags.clear();
+			slide.tags.insert(data.photos[slide.p1].tags.begin(),data.photos[slide.p1].tags.end());
+			if (slide.p2 >= 0)
+				slide.tags.insert(data.photos[slide.p2].tags.begin(),data.photos[slide.p2].tags.end());
+		};
+
 		std::ifstream inputFile(path);
-		int n,p1,p2;
+		int n;
 		inputFile >> n;
-		solution.slides.clear();
 		solution.slides.resize(n);
+		solution.evals.resize(n-1);
 		for (int i=0; i<n; ++i){
+			int p1,p2;
 			inputFile >> p1;
-			if (data.photos[p1].isVertical){
+			solution.slides[i].p1 = p1;
+			if (data.photos[p1].is_vertical){
 				inputFile >> p2;
 				solution.slides[i].p2 = p2;
 			}
-			solution.slides[i].p1 = p1;
+			updateTags(solution.slides[i]);
 		}
 	}
 }

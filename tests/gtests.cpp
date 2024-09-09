@@ -7,13 +7,15 @@
 
 TEST(reader, read) {
 	InputData data;
-	std::string filename = std::string(PROJECT_DATA_DIR) + "/example.in";
+	std::string filename = std::string(PROJECT_DATA_DIR) + "/a.in";
 	reader::read(filename, data);
 	EXPECT_EQ(data.photos.size(),4);
-	EXPECT_EQ(data.photos[0].isVertical,false);
-	EXPECT_EQ(data.photos[1].isVertical,true);
-	EXPECT_EQ(data.photos[2].isVertical,true);
-	EXPECT_EQ(data.photos[3].isVertical,false);
+	EXPECT_EQ(data.photos[0].is_vertical,false);
+	EXPECT_EQ(data.photos[1].is_vertical,true);
+	EXPECT_EQ(data.photos[2].is_vertical,true);
+	EXPECT_EQ(data.photos[3].is_vertical,false);
+	EXPECT_EQ(data.vertical.size(),2);
+	EXPECT_EQ(data.horizontal.size(),2);
 	EXPECT_EQ(data.photos[0].tags.size(),3);
 	EXPECT_EQ(data.photos[1].tags.size(),2);
 	EXPECT_EQ(data.photos[2].tags.size(),2);
@@ -27,17 +29,21 @@ TEST(solver, eval) {
 	s2.tags = {5,0};
 	s3.tags = {3,4,5};
 	sol.slides = {s1, s2, s3};
+	sol.evals.resize(2,0);
+	sol.evals[0] = solver::evalSlides(s1,s2);
+	sol.evals[1] = solver::evalSlides(s2,s3);
 
-	int eval = solver::eval(sol);
-	EXPECT_EQ(eval,2);
-	int lazyeval = solver::lazyeval(sol,0,0);
+	EXPECT_EQ(sol.evals[0],1);
+	EXPECT_EQ(sol.evals[1],1);
+	EXPECT_EQ(solver::eval(sol),2);
+	int lazyeval = solver::lazyeval(sol,0);
 	EXPECT_EQ(lazyeval,0);
 	EXPECT_EQ(sol.evals[0],1);
 	EXPECT_EQ(sol.evals[1],1);
 	sol.slides[0].tags.insert(4);
 	sol.slides[1].tags.insert(1);
 	sol.slides[1].tags.insert(3);
-	lazyeval = solver::lazyeval(sol,0,1);
+	lazyeval = solver::lazyeval(sol,1);
 	EXPECT_EQ(lazyeval,1);
 	EXPECT_EQ(sol.evals[0],2);
 	EXPECT_EQ(sol.evals[1],1);
